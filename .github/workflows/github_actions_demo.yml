@@ -15,6 +15,11 @@ jobs:
       # -----------------------------------------------------------------------------------------------------------
       # Example 1
       # -----------------------------------------------------------------------------------------------------------
+      - name: Checkout (fetch last two commits) of the PR
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 2
       - name: Set node version
         uses: actions/setup-node@v3
         with:
