@@ -33,11 +33,13 @@ jobs:
         with:
           base_sha: "${{ steps.base-sha.outputs.sha }}"
 
+      - name: use the split() function
+        id: changed-files-names
+        run: { { item.split('.') | first } }
+        loop: "{{ steps.changed-files.outputs.all_changed_files }}"
+
       - name: Test all changed files
         env:
-          ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+          ALL_CHANGED_FILES: ${{ steps.changed-files-names.outputs.all_changed_files }}
         run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-              echo $file 
-          done
           yarn test:cover ${ALL_CHANGED_FILES} --passWithNoTests
