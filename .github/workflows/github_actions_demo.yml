@@ -15,11 +15,9 @@ jobs:
       # -----------------------------------------------------------------------------------------------------------
       # Example 1
       # -----------------------------------------------------------------------------------------------------------
-      - name: Checkout (fetch last two commits) of the PR
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 2
+      - name: Base SHA
+        id: base-sha
+        run: echo "sha=$(git rev-parse origin/master)" >> $GITHUB_OUTPUT
       - name: Set node version
         uses: actions/setup-node@v3
         with:
@@ -33,7 +31,7 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v45
         with:
-          since_last_remote_commit: true
+          base_sha: "${{ steps.base-sha.outputs.sha }}"
 
       - name: Test all changed files
         env:
