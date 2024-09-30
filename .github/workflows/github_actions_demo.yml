@@ -17,7 +17,7 @@ jobs:
       # -----------------------------------------------------------------------------------------------------------
       - name: Base SHA
         id: base-sha
-        run: echo "sha=$(git rev-parse origin/master)" >> $GITHUB_OUTPUT
+        run: echo "sha=$(git rev-parse origin/main)" >> $GITHUB_OUTPUT
       - name: Set node version
         uses: actions/setup-node@v3
         with:
