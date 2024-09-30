@@ -38,6 +38,6 @@ jobs:
           ALL_CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-              echo ${file.split('.') | first}
+              echo ${file.split('.')} 
           done
           yarn test:cover ${ALL_CHANGED_FILES} --passWithNoTests
