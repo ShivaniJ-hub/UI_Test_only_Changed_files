@@ -14,15 +14,15 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 2
-        
+
       - name: Get changes
         id: changes-custom
         run: echo "chngs=$(git diff --name-only HEAD^1 HEAD)" >> $GITHUB_OUTPUT
 
       - name: print all changed file
+        env:
           CHANGED_FILES: ${{ steps.changes-custom.outputs.chngs }}
-        # run: echo ${CHANGED_FILES}
-
+        run: echo ${CHANGED_FILES}
 
       # -----------------------------------------------------------------------------------------------------------
       # Example 1
